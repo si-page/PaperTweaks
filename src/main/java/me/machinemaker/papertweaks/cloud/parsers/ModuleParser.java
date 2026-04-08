@@ -21,11 +21,14 @@ package me.machinemaker.papertweaks.cloud.parsers;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Predicate;
+import me.machinemaker.papertweaks.adventure.TranslationRegistry;
 import me.machinemaker.papertweaks.cloud.dispatchers.CommandDispatcher;
 import me.machinemaker.papertweaks.cloud.processors.ConditionalCaseInsensitiveSuggestionProcessor;
 import me.machinemaker.papertweaks.modules.ModuleBase;
@@ -51,6 +54,11 @@ public class ModuleParser implements ArgumentParser<CommandDispatcher, ModuleBas
         this.enabled = enabled;
     }
 
+    private static String translate(final String key, final Object... args) {
+        final String template = TranslationRegistry.translate(key, Locale.ENGLISH).orElse(key);
+        return MessageFormat.format(template, args);
+    }
+
     private static Predicate<ModuleLifecycle> predicateFor(final @Nullable Boolean enabled) {
         if (enabled == null) {
             return lifecycle -> true;
@@ -66,14 +74,14 @@ public class ModuleParser implements ArgumentParser<CommandDispatcher, ModuleBas
         final String input = commandInput.readString();
         final Optional<ModuleLifecycle> lifecycle = this.manager.getLifecycle(input);
         if (lifecycle.isEmpty()) {
-            return ArgumentParseResult.failure(new IllegalArgumentException(input + " is not a valid module")); // TODO lang
+            return ArgumentParseResult.failure(new IllegalArgumentException(translate("commands.arguments.module.invalid", input)));
         }
         if (this.enabled != null) {
             if (this.enabled && !lifecycle.get().getState().isRunning()) {
-                return ArgumentParseResult.failure(new IllegalArgumentException(input + " must be enabled!")); // TODO lang
+                return ArgumentParseResult.failure(new IllegalArgumentException(translate("commands.arguments.module.must-be-enabled", input)));
             }
             if (!this.enabled && lifecycle.get().getState().isRunning()) {
-                return ArgumentParseResult.failure(new IllegalArgumentException(input + " must be disabled!")); // TODO lang
+                return ArgumentParseResult.failure(new IllegalArgumentException(translate("commands.arguments.module.must-be-disabled", input)));
             }
         }
         try {
