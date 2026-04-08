@@ -40,5 +40,5 @@ public final class DataTypes {
     public static final PersistentDataType<byte[], Location> LOCATION = new LocationDataType();
     public static final PersistentDataType<byte[], ItemStack> ITEMSTACK = new ItemStackDataType();
 
-    public static final PersistentDataType<String, ItemStack[]> ITEMSTACK_ARRAY = new ItemStackArrayDataType();
+    public static final PersistentDataType<byte[], ItemStack[]> ITEMSTACK_ARRAY = new ItemStackArrayDataType();
 }

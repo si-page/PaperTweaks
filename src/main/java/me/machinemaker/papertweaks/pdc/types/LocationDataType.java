@@ -19,20 +19,20 @@
  */
 package me.machinemaker.papertweaks.pdc.types;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.persistence.PersistentDataAdapterContext;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.util.io.BukkitObjectInputStream;
-import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
 public class LocationDataType implements PersistentDataType<byte[], Location> {
+
     @NotNull
     @Override
     public Class<byte[]> getPrimitiveType() {
@@ -49,7 +49,7 @@ public class LocationDataType implements PersistentDataType<byte[], Location> {
     public byte @NotNull [] toPrimitive(@NotNull Location complex, @NotNull PersistentDataAdapterContext context) {
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
+            DataOutputStream dataOutput = new DataOutputStream(outputStream);
             dataOutput.writeInt(complex.getBlockX());
             dataOutput.writeInt(complex.getBlockY());
             dataOutput.writeInt(complex.getBlockZ());
@@ -71,7 +71,7 @@ public class LocationDataType implements PersistentDataType<byte[], Location> {
     public Location fromPrimitive(byte @NotNull [] primitive, @NotNull PersistentDataAdapterContext context) {
         try {
             ByteArrayInputStream inputStream = new ByteArrayInputStream(primitive);
-            BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
+            DataInputStream dataInput = new DataInputStream(inputStream);
             int x = dataInput.readInt();
             int y = dataInput.readInt();
             int z = dataInput.readInt();
