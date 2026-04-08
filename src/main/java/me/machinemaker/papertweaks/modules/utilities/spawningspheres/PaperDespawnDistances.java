@@ -79,6 +79,7 @@ class PaperDespawnDistances implements DespawnDistances {
 
         static final String PATH = "entities.spawning.despawn-ranges.monster.hard";
 
+        @SuppressWarnings("removal") // No stable API to read per-world despawn distances; revisit when Paper exposes one
         @Override
         public Callable<Integer> apply(final World world) {
             final @Nullable ConfigurationSection worlds = Bukkit.getServer().spigot().getPaperConfig().getConfigurationSection("__________WORLDS__________");
