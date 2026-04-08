@@ -3,7 +3,7 @@
  *
  * PaperTweaks, a performant replacement for the VanillaTweaks datapacks.
  *
- * Copyright (C) 2021-2025 Machine_Maker
+ * Copyright (C) 2021-2026 Machine_Maker
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.jdbi.v3.core.annotation.Unmappable;
 import org.jdbi.v3.core.mapper.reflect.JdbiConstructor;
 
 public class Home {
@@ -93,7 +92,6 @@ public class Home {
         return this.z;
     }
 
-    @Unmappable
     public @Nullable Location getLocation() {
         final @Nullable World world = Bukkit.getWorld(this.world);
         if (world != null) {

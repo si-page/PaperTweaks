@@ -3,11 +3,11 @@ minecraft = "1.21.11"
 mm-mirror = "0.2.0"
 mm-lectern = "0.3.0" # deprecated
 cloud = "2.0.0-SNAPSHOT"
-bstats = "3.0.2"
+bstats = "3.1.0"
 moonshine = "2.0.4"
 guice = "7.0.0"
-jdbi = "3.22.0"
-jackson = "2.15.2"
+jdbi = "3.49.3"
+jackson = "2.19.0"
 commons-config = "2.10.1"
 commons-beans = "1.11.0"
 
@@ -18,9 +18,14 @@ slf4j-api = "2.0.7" # only until paper bumps api version
 worldguard = "7.0.9"
 griefprevention = "16.18.1"
 
+classgraph = "4.8.180"
+geantyref = "1.3.14"
+h2 = "1.4.200"
+sqlite-jdbc = "3.49.1.0"
+
 # tests
 junit = "6.0.1"
-mockito = "5.5.0"
+mockito = "5.18.0"
 
 # plugins
 shadow = "9.3.0"
@@ -55,6 +60,11 @@ slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j-api" }
 # soft deps
 worldguard = { module = "com.sk89q.worldguard:worldguard-bukkit", version.ref = "worldguard" }
 griefprevention = { module = "com.github.TechFortress:GriefPrevention", version.ref = "griefprevention" }
+
+classgraph = { module = "io.github.classgraph:classgraph", version.ref = "classgraph" }
+geantyref = { module = "io.leangen.geantyref:geantyref", version.ref = "geantyref" }
+h2 = { module = "com.h2database:h2", version.ref = "h2" }
+sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite-jdbc" }
 
 # tests
 junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }

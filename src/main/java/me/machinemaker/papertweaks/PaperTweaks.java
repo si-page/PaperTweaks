@@ -3,7 +3,7 @@
  *
  * PaperTweaks, a performant replacement for the VanillaTweaks datapacks.
  *
- * Copyright (C) 2021-2025 Machine_Maker
+ * Copyright (C) 2021-2026 Machine_Maker
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,6 +57,7 @@ import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.Component.translatable;
 import static net.kyori.adventure.text.format.NamedTextColor.*;
 
+@SuppressWarnings("this-escape") // getDataFolder() is set by Paper before the plugin class is instantiated
 public class PaperTweaks extends JavaPlugin {
 
     public static final Component PLUGIN_PREFIX = text().append(text("[", DARK_GRAY)).append(text(LoggerFactory.GLOBAL_PREFIX, BLUE)).append(text("] ", DARK_GRAY)).build();

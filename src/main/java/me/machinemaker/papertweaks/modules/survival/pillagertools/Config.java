@@ -3,7 +3,7 @@
  *
  * PaperTweaks, a performant replacement for the VanillaTweaks datapacks.
  *
- * Copyright (C) 2021-2025 Machine_Maker
+ * Copyright (C) 2021-2026 Machine_Maker
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,11 +31,6 @@ import net.kyori.adventure.text.Component;
 @PTConfig
 class Config extends SimpleMenuModuleConfig<Config> {
 
-    @Key("bad-omen")
-    @I18nKey("modules.pillager-tools.settings.bad_omen")
-    @Description("modules.pillager-tools.settings.bad_omen.extended")
-    public boolean badOmen = true;
-
     @Key("patrol-leaders")
     @I18nKey("modules.pillager-tools.settings.patrol_leaders")
     @Description("modules.pillager-tools.settings.patrol_leaders.extended")
@@ -49,7 +44,6 @@ class Config extends SimpleMenuModuleConfig<Config> {
     boolean getSettingValue(final PillagerTools.ToggleOption option) {
         return switch (option) {
             case PATROLS -> this.patrols;
-            case BAD_OMEN -> this.badOmen;
             case PATROL_LEADERS -> this.patrolLeaders;
         };
     }

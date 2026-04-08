@@ -3,7 +3,7 @@
  *
  * PaperTweaks, a performant replacement for the VanillaTweaks datapacks.
  *
- * Copyright (C) 2023-2026 Machine_Maker
+ * Copyright (C) 2021-2026 Machine_Maker
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,11 +17,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-/**
- * Fast Leaf Decay module
- */
-@DefaultQualifier(NonNull.class)
-package me.machinemaker.papertweaks.modules.survival.fastleafdecay;
+package me.machinemaker.papertweaks.modules.survival.coordinateshud;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.framework.qual.DefaultQualifier;
+import me.machinemaker.papertweaks.modules.ModuleMessageService;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.moonshine.annotation.Message;
+import net.kyori.moonshine.annotation.Placeholder;
+
+interface MessageService extends ModuleMessageService {
+
+    @Message("modules.coordinates-hud.hud")
+    void showHud(Audience audience, @Placeholder("x") int x, @Placeholder("y") int y, @Placeholder("z") int z, @Placeholder("dir") String dir, @Placeholder("hh") String hh, @Placeholder("mm") String mm);
+}

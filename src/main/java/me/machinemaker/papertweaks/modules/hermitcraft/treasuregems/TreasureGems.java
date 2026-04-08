@@ -3,7 +3,7 @@
  *
  * PaperTweaks, a performant replacement for the VanillaTweaks datapacks.
  *
- * Copyright (C) 2021-2025 Machine_Maker
+ * Copyright (C) 2021-2026 Machine_Maker
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,6 @@ import com.google.inject.name.Named;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -64,9 +63,7 @@ public class TreasureGems extends ModuleBase {
             tempTables = JSON_MAPPER.readValue(loader.getResourceAsStream("data/treasure_gems/loot_tables.json"), new TypeReference<Set<LootTables>>() {
             });
             final ObjectNode heads = JSON_MAPPER.readValue(loader.getResourceAsStream("data/treasure_gems/heads.json"), ObjectNode.class);
-            final Iterator<Map.Entry<String, JsonNode>> iter = heads.fields();
-            while (iter.hasNext()) {
-                final Map.Entry<String, JsonNode> entry = iter.next();
+            for (final Map.Entry<String, JsonNode> entry : heads.properties()) {
                 tempHeads.put(entry.getKey(), PTUtils.getSkull(GsonComponentSerializer.gson().deserialize(entry.getValue().get("name").asText()), UUID.fromString(entry.getValue().get("uuid").asText()), entry.getValue().get("texture").asText(), 1));
             }
 

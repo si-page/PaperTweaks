@@ -3,7 +3,7 @@
  *
  * PaperTweaks, a performant replacement for the VanillaTweaks datapacks.
  *
- * Copyright (C) 2021-2025 Machine_Maker
+ * Copyright (C) 2021-2026 Machine_Maker
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@
  */
 package me.machinemaker.papertweaks.modules.survival.cauldronconcrete;
 
-import com.destroystokyo.paper.MaterialTags;
 import java.util.Collection;
 import java.util.Set;
 import me.machinemaker.papertweaks.annotations.ModuleInfo;
@@ -27,6 +26,7 @@ import me.machinemaker.papertweaks.modules.ModuleBase;
 import me.machinemaker.papertweaks.modules.ModuleLifecycle;
 import me.machinemaker.papertweaks.modules.ModuleListener;
 import org.bukkit.Material;
+import org.bukkit.Tag;
 
 import static java.util.Objects.requireNonNull;
 
@@ -34,7 +34,7 @@ import static java.util.Objects.requireNonNull;
 public class CauldronConcrete extends ModuleBase {
 
     static Material toConcreteFromPowder(final Material concretePowder) {
-        if (!MaterialTags.CONCRETE_POWDER.isTagged(concretePowder)) {
+        if (!Tag.CONCRETE_POWDER.isTagged(concretePowder)) {
             throw new IllegalArgumentException(concretePowder + " is not a concrete powder");
         }
 

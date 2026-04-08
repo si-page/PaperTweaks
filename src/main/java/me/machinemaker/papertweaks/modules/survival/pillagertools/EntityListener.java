@@ -3,7 +3,7 @@
  *
  * PaperTweaks, a performant replacement for the VanillaTweaks datapacks.
  *
- * Copyright (C) 2021-2025 Machine_Maker
+ * Copyright (C) 2021-2026 Machine_Maker
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@ import org.bukkit.entity.Pillager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityPotionEffectEvent;
 
 class EntityListener implements ModuleListener {
 
@@ -48,10 +47,5 @@ class EntityListener implements ModuleListener {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onStatusEffectChange(final EntityPotionEffectEvent event) {
-        if (!this.config.badOmen && event.getCause() == EntityPotionEffectEvent.Cause.PATROL_CAPTAIN)
-            event.setCancelled(true);
-    }
 
 }

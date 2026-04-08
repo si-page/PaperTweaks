@@ -3,7 +3,7 @@
  *
  * PaperTweaks, a performant replacement for the VanillaTweaks datapacks.
  *
- * Copyright (C) 2021-2025 Machine_Maker
+ * Copyright (C) 2021-2026 Machine_Maker
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,28 +19,30 @@
  */
 package me.machinemaker.papertweaks.pdc.types.itemstack;
 
-import me.machinemaker.papertweaks.pdc.types.AbstractByteArrayType;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.io.BukkitObjectInputStream;
-import org.bukkit.util.io.BukkitObjectOutputStream;
+import org.bukkit.persistence.PersistentDataAdapterContext;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-
-public class ItemStackDataType extends AbstractByteArrayType<ItemStack> {
+public class ItemStackDataType implements PersistentDataType<byte[], ItemStack> {
 
     @Override
-    protected void write(@NotNull ItemStack object, @NotNull BukkitObjectOutputStream dataOutput) throws IOException {
-        dataOutput.writeObject(object);
-    }
-
-    @Override
-    protected ItemStack read(@NotNull BukkitObjectInputStream dataInput) throws ClassNotFoundException, IOException {
-        return (ItemStack) dataInput.readObject();
+    public @NotNull Class<byte[]> getPrimitiveType() {
+        return byte[].class;
     }
 
     @Override
     public @NotNull Class<ItemStack> getComplexType() {
         return ItemStack.class;
+    }
+
+    @Override
+    public byte @NotNull [] toPrimitive(@NotNull ItemStack complex, @NotNull PersistentDataAdapterContext context) {
+        return complex.serializeAsBytes();
+    }
+
+    @Override
+    public @NotNull ItemStack fromPrimitive(byte @NotNull [] primitive, @NotNull PersistentDataAdapterContext context) {
+        return ItemStack.deserializeBytes(primitive);
     }
 }

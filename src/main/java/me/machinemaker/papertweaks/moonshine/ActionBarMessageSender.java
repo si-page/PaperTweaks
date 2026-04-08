@@ -3,7 +3,7 @@
  *
  * PaperTweaks, a performant replacement for the VanillaTweaks datapacks.
  *
- * Copyright (C) 2023-2026 Machine_Maker
+ * Copyright (C) 2021-2026 Machine_Maker
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,11 +17,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-/**
- * Fast Leaf Decay module
- */
-@DefaultQualifier(NonNull.class)
-package me.machinemaker.papertweaks.modules.survival.fastleafdecay;
+package me.machinemaker.papertweaks.moonshine;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.framework.qual.DefaultQualifier;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.Component;
+import net.kyori.moonshine.message.IMessageSender;
+
+public class ActionBarMessageSender implements IMessageSender<Audience, Component> {
+
+    @Override
+    public void send(final Audience receiver, final Component renderedMessage) {
+        receiver.sendActionBar(renderedMessage);
+    }
+}

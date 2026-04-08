@@ -3,7 +3,7 @@
  *
  * PaperTweaks, a performant replacement for the VanillaTweaks datapacks.
  *
- * Copyright (C) 2021-2025 Machine_Maker
+ * Copyright (C) 2021-2026 Machine_Maker
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,5 +40,5 @@ public final class DataTypes {
     public static final PersistentDataType<byte[], Location> LOCATION = new LocationDataType();
     public static final PersistentDataType<byte[], ItemStack> ITEMSTACK = new ItemStackDataType();
 
-    public static final PersistentDataType<String, ItemStack[]> ITEMSTACK_ARRAY = new ItemStackArrayDataType();
+    public static final PersistentDataType<byte[], ItemStack[]> ITEMSTACK_ARRAY = new ItemStackArrayDataType();
 }
