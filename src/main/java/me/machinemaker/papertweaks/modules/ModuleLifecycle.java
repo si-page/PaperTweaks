@@ -90,7 +90,7 @@ public abstract class ModuleLifecycle {
             PaperTweaks.LOGGER.error("Failed to enable {}", this.moduleInfo.name(), e);
             e.printStackTrace();
             this.state = ModuleState.ENABLED_FAILED;
-            // TODO disable commands
+            this.disableCommands();
             this.unregisterListeners();
             this.onDisable(false);
         }
