@@ -111,10 +111,13 @@ class Commands extends ConfiguredModuleCommand {
                 final Player player = PlayerCommandDispatcher.from(context);
                 change.apply(player);
                 this.menu.send(context);
+                final SleepContext sleepContext = MultiplayerSleep.SLEEP_CONTEXT_MAP.get(player.getWorld().getUID());
+                if (sleepContext != null && !sleepContext.sleepingPlayers().isEmpty()) {
+                    this.settings.getSetting(Settings.DISPLAY).getOrDefault(player).notify(player, sleepContext, false);
+                }
             })
         );
         this.register(resetPlayerSettings(configBuilder, "modules.multiplayer-sleep.commands.config.reset", this.settings));
-        // TODO if set to action bar or boss bar, don't wait for SleepContext#recalculate to send notifications
 
         this.config.createCommands(this, builder);
     }
