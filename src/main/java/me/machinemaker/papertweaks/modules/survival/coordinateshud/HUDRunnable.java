@@ -29,9 +29,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import me.machinemaker.papertweaks.pdc.PDCKey;
 import me.machinemaker.papertweaks.utils.Keys;
 import me.machinemaker.papertweaks.utils.runnables.TimerRunnable;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -45,11 +42,13 @@ class HUDRunnable extends TimerRunnable {
 
     private final Set<UUID> enabled = ConcurrentHashMap.newKeySet();
     private final Config config;
+    private final MessageService messageService;
 
     @Inject
-    HUDRunnable(final Plugin plugin, final Config config) {
+    HUDRunnable(final Plugin plugin, final Config config, final MessageService messageService) {
         super(plugin);
         this.config = config;
+        this.messageService = messageService;
     }
 
     public void add(final Player player) {
@@ -105,11 +104,10 @@ class HUDRunnable extends TimerRunnable {
             final Long extra = (time - (hours * 1000)) * 60 / 1000;
 
             final Location loc = player.getLocation();
-            final TextComponent.Builder builder = Component.text().content("XYZ: ").color(NamedTextColor.GOLD).append(
-                    Component.text(String.format("%d %d %d  ", loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()), NamedTextColor.WHITE),
-                    Component.text(String.format("%2s      %02d:%02d", CoordinatesHUD.getDirection(loc.getYaw()).c, hours, extra))
-            );
-            player.sendActionBar(builder.build()); // TODO i18n
+            final String dir = String.format("%2s", CoordinatesHUD.getDirection(loc.getYaw()).c);
+            final String hh = String.format("%02d", hours);
+            final String mm = String.format("%02d", extra);
+            this.messageService.showHud(player, loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(), dir, hh, mm);
         }
     }
 }

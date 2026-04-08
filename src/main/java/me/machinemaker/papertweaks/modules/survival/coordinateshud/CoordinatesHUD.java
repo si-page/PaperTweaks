@@ -22,14 +22,29 @@ package me.machinemaker.papertweaks.modules.survival.coordinateshud;
 import java.util.Collection;
 import java.util.Set;
 import me.machinemaker.papertweaks.annotations.ModuleInfo;
-import me.machinemaker.papertweaks.modules.ModuleBase;
 import me.machinemaker.papertweaks.modules.ModuleCommand;
 import me.machinemaker.papertweaks.modules.ModuleConfig;
 import me.machinemaker.papertweaks.modules.ModuleLifecycle;
 import me.machinemaker.papertweaks.modules.ModuleListener;
+import me.machinemaker.papertweaks.moonshine.ActionBarMessageSender;
+import me.machinemaker.papertweaks.moonshine.module.MoonshineModuleBase;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.Component;
+import net.kyori.moonshine.MoonshineBuilder;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 @ModuleInfo(name = "CoordinatesHUD", configPath = "survival.coordinates-hud", description = "A helpful HUD for showing coordinates and direction")
-public class CoordinatesHUD extends ModuleBase {
+public class CoordinatesHUD extends MoonshineModuleBase<MessageService> {
+
+    @Override
+    public @Nullable Class<MessageService> messageService() {
+        return MessageService.class;
+    }
+
+    @Override
+    public MoonshineBuilder.Sent<MessageService, Audience, String, Component, Component> sent(final MoonshineBuilder.Rendered<MessageService, Audience, String, Component, Component> rendered) {
+        return rendered.sent(new ActionBarMessageSender());
+    }
 
     @Override
     protected Class<? extends ModuleLifecycle> lifecycle() {
