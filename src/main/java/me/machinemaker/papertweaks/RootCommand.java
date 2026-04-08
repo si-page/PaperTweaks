@@ -21,6 +21,7 @@ package me.machinemaker.papertweaks;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -76,14 +77,20 @@ public class RootCommand extends PaperTweaksCommand {
 
     private final ModuleManager moduleManager;
     private final ConfigurationNode modulesConfig;
+    private final PaperTweaksConfig config;
+    private final Path i18nPath;
+    private final ClassLoader pluginClassLoader;
     private final CommandSender console;
     private final int maxPageCount;
     private Command.@MonotonicNonNull Builder<CommandDispatcher> builder;
 
     @Inject
-    public RootCommand(final ModuleManager moduleManager, @Named("modules") final ConfigurationNode modulesConfig, @Named("console") final CommandSender console) {
+    public RootCommand(final ModuleManager moduleManager, @Named("modules") final ConfigurationNode modulesConfig, final PaperTweaksConfig config, @Named("i18n") final Path i18nPath, @Named("plugin") final ClassLoader pluginClassLoader, @Named("console") final CommandSender console) {
         this.moduleManager = moduleManager;
         this.modulesConfig = modulesConfig;
+        this.config = config;
+        this.i18nPath = i18nPath;
+        this.pluginClassLoader = pluginClassLoader;
         this.console = console;
         this.maxPageCount = (int) Math.ceil(this.moduleManager.getModules().size() / (double) PAGE_SIZE);
     }
@@ -133,7 +140,8 @@ public class RootCommand extends PaperTweaksCommand {
     private void reloadEverything(final CommandContext<CommandDispatcher> context) {
         final Audience audience = context.sender();
         this.modulesConfig.reloadAndSave();
-        // TODO reload more stuff
+        this.config.reloadAndSave();
+        I18n.create(this.i18nPath, this.pluginClassLoader).setupI18n();
         final ModuleManager.ReloadResult result = this.moduleManager.reloadModules();
         boolean noModuleChange = true;
         if (result.disableCount() > 0) {
