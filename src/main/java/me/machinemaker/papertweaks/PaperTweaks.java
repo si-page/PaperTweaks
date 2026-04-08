@@ -57,6 +57,7 @@ import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.Component.translatable;
 import static net.kyori.adventure.text.format.NamedTextColor.*;
 
+@SuppressWarnings("this-escape") // getDataFolder() is set by Paper before the plugin class is instantiated
 public class PaperTweaks extends JavaPlugin {
 
     public static final Component PLUGIN_PREFIX = text().append(text("[", DARK_GRAY)).append(text(LoggerFactory.GLOBAL_PREFIX, BLUE)).append(text("] ", DARK_GRAY)).build();
