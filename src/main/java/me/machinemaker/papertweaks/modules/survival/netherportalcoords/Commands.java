@@ -25,6 +25,7 @@ import me.machinemaker.papertweaks.cloud.dispatchers.CommandDispatcher;
 import me.machinemaker.papertweaks.cloud.dispatchers.PlayerCommandDispatcher;
 import me.machinemaker.papertweaks.modules.ModuleCommand;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 @ModuleCommand.Info(value = "portalcoords", aliases = "pcoords", descriptionKey = "modules.nether-portal-coords.commands.root", miniMessage = true, infoOnRoot = false)
@@ -39,6 +40,10 @@ class Commands extends ModuleCommand {
         this.messageService = messageService;
     }
 
+    private static int coordinateScale(final World world) {
+        return world.getEnvironment() == World.Environment.NETHER ? 8 : 1;
+    }
+
     @Override
     protected void registerCommands() {
         final Command.Builder<CommandDispatcher> builder = this.player();
@@ -49,9 +54,11 @@ class Commands extends ModuleCommand {
                 final Player player = PlayerCommandDispatcher.from(context);
                 final Location loc = player.getLocation();
                 if (this.config.overWorlds().contains(player.getWorld())) {
-                    this.messageService.coordinatesMsg(context.sender(), new MessageService.CoordinatesComponent(loc, i -> i / 8), "Nether"); // TODO use coord scale from DimensionType
+                    final int netherScale = this.config.netherWorlds().stream().findFirst().map(Commands::coordinateScale).orElse(8);
+                    this.messageService.coordinatesMsg(context.sender(), new MessageService.CoordinatesComponent(loc, i -> i / netherScale), "Nether");
                 } else if (this.config.netherWorlds().contains(player.getWorld())) {
-                    this.messageService.coordinatesMsg(context.sender(), new MessageService.CoordinatesComponent(loc, i -> i * 8), "Overworld"); // TODO use coord scale from DimensionType
+                    final int netherScale = coordinateScale(player.getWorld());
+                    this.messageService.coordinatesMsg(context.sender(), new MessageService.CoordinatesComponent(loc, i -> i * netherScale), "Overworld");
                 } else {
                     this.messageService.invalidWorld(context.sender());
                 }
