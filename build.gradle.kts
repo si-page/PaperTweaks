@@ -51,11 +51,10 @@ dependencies {
     compileOnly(libs.worldguard)
     compileOnly(libs.griefprevention)
 
-    // TODO convert to libs.versions.toml
-    implementation("io.github.classgraph:classgraph:4.8.157")
-    implementation("io.leangen.geantyref:geantyref:1.3.14")
-    implementation("com.h2database:h2:1.4.200")
-    implementation("org.xerial:sqlite-jdbc:3.41.2.2")
+    implementation(libs.classgraph)
+    implementation(libs.geantyref)
+    implementation(libs.h2)
+    implementation(libs.sqlite.jdbc)
 
     // tests
     testImplementation(paperApi)
