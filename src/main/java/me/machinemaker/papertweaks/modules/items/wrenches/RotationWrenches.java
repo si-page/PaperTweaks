@@ -47,6 +47,7 @@ import static net.kyori.adventure.resource.ResourcePackRequest.resourcePackReque
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.format.Style.style;
 
+@SuppressWarnings("deprecation")
 @ModuleInfo(name = "RotationWrenches", configPath = "items.rotation-wrenches", description = "A wrench to rotate redstone components and/or terracotta")
 public class RotationWrenches extends ModuleBase {
 
